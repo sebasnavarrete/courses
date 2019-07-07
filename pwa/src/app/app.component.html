@@ -1,0 +1,56 @@
+<mat-toolbar color="primary">
+  <div *ngIf="authService.user() | async as user; else showLogin">
+    Notas | {{ user.displayName }}
+    <button mat-raised-button color="warn" (click)="logout()">Salir</button>
+  </div>
+  <ng-template #showLogin>
+    Notas &nbsp;
+    <button mat-raised-button color="accent" (click)="login()">Entrar</button>
+  </ng-template>
+</mat-toolbar>
+<h2>{{message | async | json}}</h2>
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Nota
+      </mat-panel-title>
+      <mat-panel-description>
+        Crear o editar nota
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-form-field>
+      <input matInput placeholder="Título de la nota" [(ngModel)]="note.title">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Categoría</mat-label>
+      <mat-select [(ngModel)]="note.category">
+        <mat-option *ngFor="let c of categories" [value]="c">
+          {{c}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea matInput placeholder="Contenido de la nota" [(ngModel)]="note.content"> </textarea>
+    </mat-form-field>
+    <button mat-raised-button color="accent" (click)="saveNote()">Guardar</button>
+    <button mat-raised-button color="warn" (click)="deleteNote()" *ngIf="note.id">Eliminar!!</button>
+  </mat-expansion-panel>
+
+
+  <mat-list>
+    <mat-list-item *ngFor="let n of notes" (click)="selectNote(n)">
+      <h3 matLine> {{n.title}} </h3>
+      <p matLine> {{n.content}} </p>
+      <p matLine> {{n.category}} </p>
+      <small matLine> {{n.id | date}} </small>
+    </mat-list-item>
+  </mat-list>
+
+</mat-accordion>
+
+
+<router-outlet></router-outlet>
