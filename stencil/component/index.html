@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web component</title>
+    <script src="tooltip.js"></script>
+    <script src="confirm-link.js"></script>
+    <style>
+        :root {
+            --primary-color: #1fb7c4;
+        }
+        div {
+            border: 12px solid orange;
+        }
+
+        sn-tooltip {
+            border: 1px solid darkred;
+            padding: 0.15rem;
+        }
+
+        .highlight {
+            /*background-color: #f8bd6a;*/
+        }
+    </style>
+</head>
+<body>
+<p>
+    <sn-tooltip class="important" text="This is the first tooltip text">
+        <span class="highlight">Web Components</span>
+    </sn-tooltip>
+    are awesone!
+</p>
+<sn-tooltip></sn-tooltip>
+<a is="sn-confirm-link" href="https://google.com">Google</a>
+</body>
+</html>
